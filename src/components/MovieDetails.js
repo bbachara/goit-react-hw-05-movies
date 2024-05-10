@@ -1,11 +1,22 @@
 import React, { useEffect, useState } from 'react';
-import { useParams, Link, Outlet, useNavigate } from 'react-router-dom';
+import {
+  useParams,
+  Link,
+  Outlet,
+  useNavigate,
+  useLocation,
+} from 'react-router-dom';
+import Loader from './Loader';
+import './MovieDetails.css';
 
 function MovieDetails() {
   const { movieId } = useParams();
   const [movie, setMovie] = useState(null);
   const [loading, setLoading] = useState(false);
-  const navigate = useNavigate(); // Hook to navigate programmatically
+  const navigate = useNavigate();
+  const location = useLocation();
+  const origin = location.state?.from;
+  console.log('Origin is:', origin);
 
   useEffect(() => {
     setLoading(true);
@@ -23,27 +34,30 @@ function MovieDetails() {
       });
   }, [movieId]);
 
-  if (loading) return <div>Loading...</div>;
+  if (loading) return <Loader style={{ margin: '0 auto' }} />;
   if (!movie) return <div>No movie found</div>;
 
-  // Function to handle back navigation
   const goBack = () => {
-    navigate(-1); // Goes back one step in the browser's history stack
+    if (origin === 'Movies') {
+      navigate('/movies');
+    } else {
+      navigate('/');
+    }
   };
 
   return (
-    <div style={{ display: 'flex', alignItems: 'flex-start' }}>
-      <div>
-        <button onClick={goBack} style={{ marginBottom: '10px' }}>
-          Go Back
+    <div className="movie-details-div">
+      <div className="movie-details">
+        <button className="go-back-button" onClick={goBack}>
+          Back
         </button>
         <img
+          className="movie-details-img"
           src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
           alt={movie.title}
-          style={{ marginRight: '20px' }}
         />
       </div>
-      <div>
+      <div className="movie-details-descr">
         <h1>{movie.title}</h1>
         <p>
           <strong>Overview:</strong> {movie.overview}
@@ -59,7 +73,13 @@ function MovieDetails() {
           <strong>Rating:</strong> {movie.vote_average} / 10
         </p>
         <div>
-          <Link to="cast">Cast</Link> | <Link to="reviews">Reviews</Link>
+          <Link to="cast" state={{ from: origin }}>
+            Cast
+          </Link>{' '}
+          |{' '}
+          <Link to="reviews" state={{ from: origin }}>
+            Reviews
+          </Link>
         </div>
         <Outlet />
       </div>

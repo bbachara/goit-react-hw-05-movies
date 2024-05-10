@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import Loader from './Loader';
 
 function Reviews() {
   const { movieId } = useParams();
+
   const [reviews, setReviews] = useState([]);
   const [loading, setLoading] = useState(false);
 
@@ -22,7 +24,7 @@ function Reviews() {
       });
   }, [movieId]);
 
-  if (loading) return <div>Loading...</div>;
+  if (loading) return <Loader style={{ margin: '0 auto' }} />;
   if (reviews.length === 0) return <div>No reviews available.</div>;
 
   return (

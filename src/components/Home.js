@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import './Home.css';
+import Loader from './Loader';
 
 function Home() {
   const [movies, setMovies] = useState([]);
@@ -21,16 +23,22 @@ function Home() {
       });
   }, []);
 
-  if (loading) return <div>Loading...</div>;
+  if (loading) return <Loader style={{ margin: '0 auto' }} />;
 
   return (
-    <div>
+    <div className="trending-movies">
       <h1>Trending Movies</h1>
-      <ul>
+      <ul className="trending-movies-list">
         {movies.map(movie => (
-          <li key={movie.id}>
-            {/* Using Link to create a clickable link that routes to /movies/:movieId */}
-            <Link to={`/movies/${movie.id}`}>{movie.title}</Link>
+          <li className="trending-movies-item" key={movie.id}>
+            <Link to={`/movies/${movie.id}`} state={{ from: 'Home' }}>
+              <img
+                src={`https://image.tmdb.org/t/p/w200${movie.poster_path}`}
+                alt={movie.title}
+                style={{ width: '200px' }}
+              />
+              <div>{movie.title}</div>
+            </Link>
           </li>
         ))}
       </ul>

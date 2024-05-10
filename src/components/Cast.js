@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import Loader from './Loader';
 
 function Cast() {
   const { movieId } = useParams();
@@ -22,7 +23,7 @@ function Cast() {
       });
   }, [movieId]);
 
-  if (loading) return <div>Loading...</div>;
+  if (loading) return <Loader style={{ margin: '0 auto' }} />;
 
   return (
     <div>

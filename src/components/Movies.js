@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import './Movies.css';
+import Loader from './Loader';
 
 function Movies() {
   const [keyword, setKeyword] = useState('');
@@ -7,7 +9,7 @@ function Movies() {
   const [loading, setLoading] = useState(false);
 
   const handleSearch = () => {
-    if (!keyword) return; // Prevents searching with an empty query
+    if (!keyword) return;
     setLoading(true);
     fetch(
       `https://api.themoviedb.org/3/search/movie?api_key=35349a736eae14c1caed3005a307c333&query=${encodeURIComponent(
@@ -32,23 +34,30 @@ function Movies() {
   };
 
   return (
-    <div>
+    <div className="searched-movies">
       <h1>Search Movies</h1>
-      <input
-        type="text"
-        value={keyword}
-        onChange={e => setKeyword(e.target.value)}
-        onKeyPress={handleKeyPress} // Listening for key presses
-        placeholder="Enter search keyword"
-      />
-      <button onClick={handleSearch}>Search</button>
+      <div className="input-div">
+        <input
+          className="searched-movies-input"
+          type="text"
+          value={keyword}
+          onChange={e => setKeyword(e.target.value)}
+          onKeyPress={handleKeyPress}
+          placeholder="Enter search keyword"
+        />
+        <button className="searched-movies-button" onClick={handleSearch}>
+          Search
+        </button>
+      </div>
       {loading ? (
-        <div>Loading...</div>
+        <Loader />
       ) : (
         <ul>
           {results.map(movie => (
-            <li key={movie.id}>
-              <Link to={`/movies/${movie.id}`}>{movie.title}</Link>
+            <li className="searched-movies-item" key={movie.id}>
+              <Link to={`/movies/${movie.id}`} state={{ from: 'Movies' }}>
+                {movie.title}
+              </Link>
             </li>
           ))}
         </ul>
