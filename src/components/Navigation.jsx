@@ -3,13 +3,18 @@ import { NavLink } from 'react-router-dom';
 import './Navigation.css';
 
 function Navigation() {
+  const activeStyle = {
+    fontWeight: 'bold',
+    color: 'black',
+  };
+
   return (
     <nav className="navi">
-      <NavLink exact to="/" activeClassName="active">
+      <NavLink exact="true" to="/" style={activeStyle}>
         HOME
       </NavLink>{' '}
       |{' '}
-      <NavLink to="/movies" activeClassName="active">
+      <NavLink to="/movies" style={activeStyle}>
         MOVIES
       </NavLink>
     </nav>

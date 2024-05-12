@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import './Home.css';
-import Loader from './Loader';
+import Loader from '../components/Loader';
 
 function Home() {
   const [movies, setMovies] = useState([]);
@@ -23,7 +23,7 @@ function Home() {
       });
   }, []);
 
-  if (loading) return <Loader style={{ margin: '0 auto' }} />;
+  if (loading) return <Loader />;
 
   return (
     <div className="trending-movies">

@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import Loader from './Loader';
 
+const defaultImg = 'https://via.placeholder.com/200x300?text=No+Image';
+
 function Cast() {
   const { movieId } = useParams();
   const [cast, setCast] = useState([]);
@@ -23,7 +25,7 @@ function Cast() {
       });
   }, [movieId]);
 
-  if (loading) return <Loader style={{ margin: '0 auto' }} />;
+  if (loading) return <Loader />;
 
   return (
     <div>
@@ -38,7 +40,7 @@ function Cast() {
               src={
                 person.profile_path
                   ? `https://image.tmdb.org/t/p/w200${person.profile_path}`
-                  : 'https://via.placeholder.com/200x300?text=No+Image'
+                  : defaultImg
               }
               alt={person.name}
               style={{

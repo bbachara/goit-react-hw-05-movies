@@ -24,7 +24,7 @@ function Reviews() {
       });
   }, [movieId]);
 
-  if (loading) return <Loader style={{ margin: '0 auto' }} />;
+  if (loading) return <Loader />;
   if (reviews.length === 0) return <div>No reviews available.</div>;
 
   return (
