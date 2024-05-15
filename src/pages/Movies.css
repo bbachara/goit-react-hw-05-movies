@@ -1,3 +1,7 @@
+body {
+  background-color: white; /* Set white background */
+}
+
 h1 {
   color: black;
 }
@@ -9,7 +13,11 @@ h1 {
   min-height: 100vh;
   padding-left: 15px;
   padding-right: 15px;
+  background-image: url('./background.jpg'); /* Adjust the path to your image */
+  background-repeat: repeat; /* Repeat film frame background */
+  padding: 20px; /* Add padding to create space between content and background */
 }
+
 .searched-movies h1 {
   text-align: center;
   color: #333;

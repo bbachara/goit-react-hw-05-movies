@@ -39,35 +39,31 @@ function Movies() {
     fetchData();
   }, [searchParams]);
 
+  if (loading) return <Loader />;
+
   return (
     <div className="searched-movies">
       <h1>Search Movies</h1>
       <SearchForm onSubmit={handleSearch} />
-      {loading ? (
-        <Loader />
-      ) : (
-        <ul className="searched-movies-list">
-          {results.map(movie => (
-            <li className="searched-movies-item" key={movie.id}>
-              <Link to={`/movies/${movie.id}`} state={{ from: 'Movies' }}>
-                <img
-                  src={
-                    movie.poster_path
-                      ? `https://image.tmdb.org/t/p/w200${movie.poster_path}`
-                      : defaultImg
-                  }
-                  alt={movie.title}
-                  style={{ width: '200px' }}
-                />
-                {!movie.poster_path && (
-                  <div>Movie poster not yet available</div>
-                )}
-                <div>{movie.title}</div>
-              </Link>
-            </li>
-          ))}
-        </ul>
-      )}
+      <ul className="searched-movies-list">
+        {results.map(movie => (
+          <li className="searched-movies-item" key={movie.id}>
+            <Link to={`/movies/${movie.id}`} state={{ from: 'Movies' }}>
+              <img
+                src={
+                  movie.poster_path
+                    ? `https://image.tmdb.org/t/p/w200${movie.poster_path}`
+                    : defaultImg
+                }
+                alt={movie.title}
+                style={{ width: '200px' }}
+              />
+              {!movie.poster_path && <div>Movie poster not yet available</div>}
+              <div>{movie.title}</div>
+            </Link>
+          </li>
+        ))}
+      </ul>
     </div>
   );
 }

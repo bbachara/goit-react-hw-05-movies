@@ -1,3 +1,7 @@
+body {
+  background-color: white; /* Set white background */
+}
+
 h1 {
   color: black;
 }
@@ -13,6 +17,9 @@ h1 {
   min-height: 100vh;
   padding-left: 15px;
   padding-right: 15px;
+  background-image: url('./background.jpg'); /* Adjust the path to your image */
+  background-repeat: no-repeat; /* Repeat film frame background */
+  padding: 20px; /* Add padding to create space between content and background */
 }
 
 .trending-movies-item a {
